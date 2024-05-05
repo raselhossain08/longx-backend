@@ -5,17 +5,17 @@ const ErrorMiddleware = require('./middleware/error')
 const dotenv = require('dotenv');
 const cookieParser = require('cookie-parser');
 const path = require('path');
-const fetchAndSaveData  = require('./fetch/fetchAndSaveData')
+const fetchAndSaveData = require('./fetch/fetchAndSaveData')
 // setting up config file
-dotenv.config({path: './config/config.env'})
+dotenv.config({ path: './config/config.env' })
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const port = process.env.PORT ;
+const port = process.env.PORT;
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 // database  connectDatabase
 const connectDatabase = require('./db/db');
 connectDatabase()
-app.get('/', (req, res) =>{
+app.get('/', (req, res) => {
     res.send('Welcome to longx')
 })
 
