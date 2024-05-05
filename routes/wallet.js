@@ -1,8 +1,8 @@
 
-const express =require('express')
-const router =express.Router()
-const {usdtPrice,CryptoClpPrice,CryptoRwaPrice,ChartPrice,cryptoPrice } =require('../controller/walletController')
-const { protectRoute,authorizeRoles } = require('../middleware/auth')
+const express = require('express')
+const router = express.Router()
+const { usdtPrice, CryptoClpPrice, CryptoRwaPrice, ChartPrice, cryptoPrice } = require('../controller/walletController')
+const { protectRoute, authorizeRoles } = require('../middleware/auth')
 
 router.route('/crypto/usdt',).get(usdtPrice)
 router.route('/crypto/price',).get(cryptoPrice)
