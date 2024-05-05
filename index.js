@@ -42,12 +42,7 @@ const person = require('./routes/PersonVerification')
 const exchange = require('./routes/ExchangeRoute')
 const SendMessage = require('./routes/SendMessageRoute')
 // admin authentication 
-const adminRoute = require('./routes/admin/AdminAuthRoutes')
-const UserDetailsRoute = require('./routes/admin/UserDetailsRoute')
-const transactionRoute = require('./routes/transactionRoute/transactionRoute')
 
-app.use('',adminRoute)
-app.use('',UserDetailsRoute)
 app.use('',exchange)
 app.use('',SendMessage)
 app.use('',auth)
