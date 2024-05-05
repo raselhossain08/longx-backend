@@ -48,9 +48,6 @@ const transactionRoute = require('./routes/transactionRoute/transactionRoute')
 
 app.use('',adminRoute)
 app.use('',UserDetailsRoute)
-
-
-app.use('',transactionRoute)
 app.use('',exchange)
 app.use('',SendMessage)
 app.use('',auth)
