@@ -3,8 +3,17 @@
     "builds": [
       { "src": "app.js", "use": "@vercel/node" }
     ],
-    "rewrites": [
-      { "src": "/(.*)", "dest": "/" }
+"routes": [
+        {
+            "src": "/(.*)",
+            "dest": "/",
+            "headers": [
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "*"
+                }
+            ]
+        }
     ]
  
   }
