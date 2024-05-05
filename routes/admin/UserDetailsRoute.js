@@ -12,6 +12,7 @@ router.get('/admin/users/balance/:id', getUserProfileWallet,protectRoute);
 router.put('/admin/users/balance/:id', updateUserBalance,protectRoute);
 router.put('admin/users/wallet/:id',updateUserWallet,protectRoute);
 // Route to delete a user by ID
-router.delete('/admin/users/:id',deleteUserById,protectRoute);
+router.delete('/admin/users/:id', deleteUserById, protectRoute);
+
 module.exports = router;
 
