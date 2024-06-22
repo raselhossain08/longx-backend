@@ -12,6 +12,6 @@ const fileSchema = new mongoose.Schema({
   // Other file properties
 });
 
-const DocumentsVerification = mongoose.model('DocumentsVerification', fileSchema);
+const CompanyVerificationModel = mongoose.model('CompanyVerification', fileSchema);
 
-module.exports = DocumentsVerification;
+module.exports = CompanyVerificationModel;

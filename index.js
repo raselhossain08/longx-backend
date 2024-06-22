@@ -36,7 +36,7 @@ const auth = require('./routes/auth')
 const wallet = require('./routes/wallet')
 
 const userVerification = require('./routes/verification')
-const doc = require('./routes/doc')
+const CompanyVerification = require('./routes/companyVerification')
 const uploadRoute = require('./routes/companyVerification');
 const person = require('./routes/PersonVerification')
 const exchange = require('./routes/ExchangeRoute')
@@ -45,10 +45,10 @@ const SendMessage = require('./routes/SendMessageRoute')
 const adminRoute = require('./routes/admin/AdminAuthRoutes')
 const UserDetailsRoute = require('./routes/admin/UserDetailsRoute')
 // const transactionRoute = require('./routes/transactionRoute/transactionRoute')
-
+const uploadDir = path.join(__dirname, 'uploads');
+app.use('/uploads', express.static(uploadDir));
 app.use('',adminRoute)
 app.use('',UserDetailsRoute)
-
 
 // app.use('',transactionRoute)
 app.use('',exchange)
@@ -56,7 +56,7 @@ app.use('',SendMessage)
 app.use('',auth)
 app.use('',wallet)
 app.use('',userVerification)
-app.use('',doc)
+app.use('',CompanyVerification)
 app.use('',person)
 
 app.use(uploadRoute);

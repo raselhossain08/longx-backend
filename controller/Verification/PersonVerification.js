@@ -1,11 +1,20 @@
 const multer = require('multer');
 const path = require('path');
+const fs = require('fs');
 const PersonVerification = require('../../models/PersonVerification');
+
+// Set the upload directory
+const uploadDir = path.join(__dirname, '../../uploads');
+
+// Ensure the upload directory exists
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir, { recursive: true });
+}
 
 // Set storage engine
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'uploads/');
+    cb(null, uploadDir);
   },
   filename: function (req, file, cb) {
     cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
@@ -15,11 +24,11 @@ const storage = multer.diskStorage({
 // Initialize multer middleware
 const upload = multer({
   storage: storage,
-  limits: { fileSize: 5000000 }, // Limit file size to 1MB
+  limits: { fileSize: 5000000 }, // Limit file size to 5MB
   fileFilter: function (req, file, cb) {
     checkFileType(file, cb);
   }
-}).array('files', 4); // 'files' is the name of the field for multiple files, 10 is the maximum number of files allowed
+}).array('files', 4); // 'files' is the name of the field for multiple files, 4 is the maximum number of files allowed
 
 // Check File Type
 function checkFileType(file, cb) {
@@ -33,7 +42,7 @@ function checkFileType(file, cb) {
   if (mimetype && extname) {
     return cb(null, true);
   } else {
-    cb('Error: Images and PDFs Only!');
+    cb('Error: Only images (JPEG, JPG, PNG) and PDFs are allowed!');
   }
 }
 
@@ -57,7 +66,10 @@ const uploadFiles = async (req, res) => {
 
     upload(req, res, async (err) => {
       if (err) {
-        return res.status(400).json({ error: err });
+        if (err.code === 'LIMIT_UNEXPECTED_FILE') {
+          return res.status(400).json({ error: 'Unexpected field' });
+        }
+        return res.status(400).json({ error: err.message });
       }
 
       if (!req.files || req.files.length === 0) {
@@ -69,7 +81,7 @@ const uploadFiles = async (req, res) => {
         const newFile = new PersonVerification({
           userId: userId,
           filename: file.filename,
-          // Other file properties you might want to save
+          // Add other file properties you might want to save here
         });
         await newFile.save();
         return newFile;
@@ -77,7 +89,6 @@ const uploadFiles = async (req, res) => {
 
       const savedFiles = await Promise.all(filePromises);
       res.status(200).json({ files: savedFiles });
-      console.log(savedFiles)
     });
   } catch (error) {
     console.error(error);
