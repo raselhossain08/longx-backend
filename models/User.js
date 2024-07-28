@@ -3,16 +3,17 @@ const validator = require('validator')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const crypto = require('crypto')
+const { required } = require('nodemon/lib/config')
 const userSchema = new mongoose.Schema({
     name:{
         type:String,
-        required:[true, 'Please enter your name'],
         maxLength:[50, 'Your name must be at least 50 characters'],
+        required:true
     },
     phone:{
         type:String, 
-        required:[true, 'Please enter your phone number'],
         unique:true,
+        required:true
     },
     email:{
         type:String,
@@ -63,6 +64,10 @@ const userSchema = new mongoose.Schema({
     createdAt:{
         type:Date,
         default:Date.now()
+    },
+    verify:{
+       type:Boolean,
+       default:false 
     },
     resetPasswordToken: String,
     resetPasswordExpire:Date

@@ -24,7 +24,7 @@ const storage = multer.diskStorage({
 // Initialize multer middleware
 const upload = multer({
   storage: storage,
-  limits: { fileSize: 5000000 }, // Limit file size to 5MB
+  limits: { fileSize: 10000000 }, // Limit file size to 5MB
   fileFilter: function (req, file, cb) {
     checkFileType(file, cb);
   }
@@ -89,6 +89,7 @@ const uploadFiles = async (req, res) => {
 
       const savedFiles = await Promise.all(filePromises);
       res.status(200).json({ files: savedFiles });
+      console.log(savedFiles)
     });
   } catch (error) {
     console.error(error);

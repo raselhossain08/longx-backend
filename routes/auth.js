@@ -1,7 +1,7 @@
 
 const express =require('express')
 const router =express.Router()
-const { registerUser,login,forgotPassword,logout,userInfoUpdate,getUser,profile,updatePassword,resetPassword } =require('../controller/authController')
+const { registerUser,login,forgotPassword,logout,userInfoUpdate,getUser,registerUserMobile,profile,updatePassword,resetPassword } =require('../controller/authController')
 const { protectRoute,authorizeRoles } = require('../middleware/auth')
 
 router.route('/auth/register',).post(registerUser)

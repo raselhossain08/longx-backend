@@ -19,6 +19,8 @@ app.get('/', (req, res) => {
     res.send('Welcome to longx')
 })
 
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 app.set('view engine', 'ejs');
 
 // Specify the directory where your views/templates are located
