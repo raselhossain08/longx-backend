@@ -4,30 +4,30 @@ const axios = require('axios');
 const PriceModel = require('../models/PriceModel');
 const cron = require('node-cron');
 
-// cron.schedule('*/20 * * * * *', async () => { // Run every 4 minutes
-//     try {
-//         const [usdtRes, clpRes,btcRes,trxRes] = await Promise.all([
-//             axios.get('https://api.coingecko.com/api/v3/simple/price?ids=tether&vs_currencies=usd'),
-//             axios.get('https://api.coingecko.com/api/v3/simple/price?ids=tether&vs_currencies=clp'),
-//             axios.get('https://api.coincap.io/v2/assets/bitcoin'),
-//             axios.get('https://api.coincap.io/v2/assets/tron'),
-//         ]);
+cron.schedule('*/20 * * * * *', async () => { // Run every 4 minutes
+    try {
+        // const [usdtRes, clpRes,btcRes,trxRes] = await Promise.all([
+        //     axios.get('https://api.coingecko.com/api/v3/simple/price?ids=tether&vs_currencies=usd'),
+        //     axios.get('https://api.coingecko.com/api/v3/simple/price?ids=tether&vs_currencies=clp'),
+        //     axios.get('https://api.coincap.io/v2/assets/bitcoin'),
+        //     axios.get('https://api.coincap.io/v2/assets/tron'),
+        // ]);
 
-//         const usdtPrice = usdtRes.data.tether.usd;
-//         const clpPrice = clpRes.data.tether.clp;
-//         // const btcPrice = btcRes.data.priceUsd;
+        const usdtPrice = "1";
+        const clpPrice = "6.92";
+        // const btcPrice = btcRes.data.priceUsd;
 
-//         const priceData = new PriceModel({
-//             usdtPrice,
-//             clpPrice,
-//         });
+        const priceData = new PriceModel({
+            usdtPrice,
+            clpPrice,
+        });
 
-//         await priceData.save();
-//         console.log('Data saved to MongoDB successfully!');
-//     } catch (error) {
-//         console.error('Error fetching or saving data:', error);
-//     }
-// });
+        await priceData.save();
+        console.log('Data saved to MongoDB successfully!');
+    } catch (error) {
+        console.error('Error fetching or saving data:', error);
+    }
+});
 cron.schedule('0 0 */6 * *', async () => { // Runs every 6 hours
     try {
         const cutoffDate = new Date();
