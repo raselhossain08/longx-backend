@@ -16,7 +16,8 @@ exports.usdtPrice =catchAsyncErrors(async(req,res,next)=>{
 
 exports.CryptoClpPrice =catchAsyncErrors(async(req,res,next)=>{
     try {
-        const clpPrice = '6.92';
+        const response = await axios.get('https://api.coingecko.com/api/v3/simple/price?ids=tether&vs_currencies=clp');
+        const clpPrice = response.data.tether.clp;
         console.log('Current CLP Price:', clpPrice);
         res.json({ 
             success: true,
