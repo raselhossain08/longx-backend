@@ -46,6 +46,7 @@ const SendMessage = require('./routes/SendMessageRoute')
 // admin authentication 
 const adminRoute = require('./routes/admin/AdminAuthRoutes')
 const UserDetailsRoute = require('./routes/admin/UserDetailsRoute')
+const kycRoutes = require("./routes/kycRoutes");
 // const transactionRoute = require('./routes/transactionRoute/transactionRoute')
 const uploadDir = path.join(__dirname, 'uploads');
 app.use('/uploads', express.static(uploadDir));
@@ -62,7 +63,7 @@ app.use('',CompanyVerification)
 app.use('',person)
 
 app.use(uploadRoute);
-
+app.use("/api", kycRoutes);
 
 
 app.listen(port, () => console.log(`listening on http://localhost:${port}`));
